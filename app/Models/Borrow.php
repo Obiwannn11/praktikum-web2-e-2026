@@ -6,18 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Borrow extends Model
 {
-    
     protected $fillable = [
         'user_id',
-        'bnook_id',
+        'book_id',
         'date_start',
-        'date_end'
+        'date_end',
     ];
 
-    public function book(){
+    // tanggal pinjam & kembali otomatis jadi objek Carbon
+    protected $casts = [
+        'date_start' => 'date',
+        'date_end' => 'date',
+    ];
+
+    public function book()
+    {
         return $this->belongsTo(Book::class);
     }
-    public function user(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
