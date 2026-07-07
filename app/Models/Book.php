@@ -10,13 +10,21 @@ class Book extends Model
         'category_id',
         'title',
         'writer',
-        'release_date'
+        'release_date',
     ];
 
-    public function category(){
+    // release_date otomatis jadi objek Carbon (tanggal)
+    protected $casts = [
+        'release_date' => 'date',
+    ];
+
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function borrow(){
+
+    public function borrow()
+    {
         return $this->hasMany(Borrow::class);
     }
 }
