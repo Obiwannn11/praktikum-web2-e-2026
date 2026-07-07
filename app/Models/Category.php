@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $fillable = [
-        'name'
+        'name',
     ];
 
-    public function book(){
+    public function books()
+    {
         return $this->hasMany(Book::class);
     }
-
-    
 }
