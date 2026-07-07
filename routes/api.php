@@ -19,7 +19,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
 
-    Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('books', BookController::class);
-    Route::apiResource('borrows', BorrowController::class);
+    // Hapus data hanya boleh oleh admin (role:admin)
+    Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->middleware('role:admin');
+    Route::delete('books/{book}', [BookController::class, 'destroy'])->middleware('role:admin');
+    Route::delete('borrows/{borrow}', [BorrowController::class, 'destroy'])->middleware('role:admin');
+
+    // Sisanya (index, store, show, update) boleh semua user terautentikasi
+    Route::apiResource('categories', CategoryController::class)->except(['destroy']);
+    Route::apiResource('books', BookController::class)->except(['destroy']);
+    Route::apiResource('borrows', BorrowController::class)->except(['destroy']);
 });
